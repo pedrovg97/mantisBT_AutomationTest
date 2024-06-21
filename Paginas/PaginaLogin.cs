@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
 
-namespace mantisBT_AutomationTest
+namespace mantisBT_AutomationTest.paginas
 {
     public class PaginaLogin
     {
