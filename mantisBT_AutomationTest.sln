@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mantisBT_AutomationTest", "mantisBT_AutomationTest.csproj", "{DD08AAEF-FECD-42B6-B238-CEC2026AA66C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD08AAEF-FECD-42B6-B238-CEC2026AA66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD08AAEF-FECD-42B6-B238-CEC2026AA66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD08AAEF-FECD-42B6-B238-CEC2026AA66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD08AAEF-FECD-42B6-B238-CEC2026AA66C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53FF31E9-9902-4CD0-8EB3-BD2FEE58C8BD}
+	EndGlobalSection
+EndGlobal
