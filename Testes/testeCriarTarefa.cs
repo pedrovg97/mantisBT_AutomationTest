@@ -38,14 +38,14 @@ namespace mantisBT_AutomationTest.Testes
             {
                 if (wait.Until(ExpectedConditions.AlertIsPresent()) != null && tamanho == "Grande")
                 {
-                    Assert.Pass("Sistema alerta para arquivo grande de mais.");
+                    Assert.IsTrue(true, "Sistema alerta para arquivo grande de mais.");
                 }
             }
             catch (WebDriverTimeoutException)
             {
                 if (tamanho == "Pequeno")
                 {
-                    Assert.Pass("Arquivo valido.");
+                    Assert.IsTrue(true, "Arquivo válido.");
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace mantisBT_AutomationTest.Testes
         }
 
         [Test]
-        public void cadastrarTarefaPreenchendoDadosValidos1()
+        public void testCriacaoDeTarefaComCamposObrigatoriosEArquivoValido()
         {
             acessarPaginaCriarTarefa();
 
@@ -104,19 +104,15 @@ namespace mantisBT_AutomationTest.Testes
             driver.FindElement(By.Id("tag_select")).SendKeys("Texto");
 
             //Campo enviar arquivos 
-            enviaArquivos("input[type=file]", "C:\\Users\\pedro\\OneDrive\\Documentos\\Projetos\\mantisBT_AutomationTest\\Arquivos de teste\\arquivoTesteMenorQue2.097kb.pdf", "Pequeno");
+            enviaArquivos("input[type=file]", "C:\\Users\\pedro\\OneDrive\\Documentos\\Projetos\\mantisBT_AutomationTest\\Arquivos para teste\\arquivoTesteMenorQue2.097kb.pdf", "Pequeno");
 
             //Campo visibilidade
             driver.FindElement(By.XPath("//span[text()='público']")).Click();
 
-            //Campo condinuaar editando 
-            driver.FindElement(By.XPath("//span[text()='selecione para criar mais tarefas']")).Click();
-
             //Clicar no botão criar tarefa
             driver.FindElement(By.CssSelector("input[type='submit'][value='Criar Nova Tarefa']")).Click();
 
-            //Alterar
-            driver.Navigate().GoToUrl("https://mantis-prova.base2.com.br/view.php?id=870");
+            TimeSpan.FromSeconds(3);
 
             verificaValores("//td[@class='bug-priority']", "normal");
             verificaValores("//td[@class='bug-severity']", "texto");
@@ -128,13 +124,90 @@ namespace mantisBT_AutomationTest.Testes
 
         }
         [Test]
-        public void cadastrarTarefaComArquivoMaiorQue2MB()
+        public void testCadastrarTarefaComArquivoMaiorQue2MB()
         {
             acessarPaginaCriarTarefa();
 
             //Campo enviar arquivos 
-            enviaArquivos("input[type=file]", "C:\\Users\\pedro\\OneDrive\\Documentos\\Projetos\\mantisBT_AutomationTest\\Arquivos de teste\\arquivotesteMaiorQue2.097kb.jpg", "Grande");
+            enviaArquivos("input[type=file]", "C:\\Users\\pedro\\OneDrive\\Documentos\\Projetos\\mantisBT_AutomationTest\\Arquivos para teste\\arquivotesteMaiorQue2.097kb.jpg", "Grande");
 
         }
+
+        [Test]
+        public void testCadastrarTarefaComCampoCategoriaVazio()
+        {
+            acessarPaginaCriarTarefa();
+
+            //Campo frequencia
+            selecionaOpcaoNoSelect("reproducibility", "aleatório");
+
+            //Campo gravidade
+            selecionaOpcaoNoSelect("severity", "pequeno");
+
+            //Campo prioridade
+            selecionaOpcaoNoSelect("priority", "nenhuma");
+
+            //Campo selecionar perfil
+            selecionaOpcaoNoSelect("profile_id", "Notebook ideapad3 windows 11");
+
+            //Campo resumo
+            preencheCampoDeTexto("summary", "Texto teste");
+
+            //Campo descricao
+            preencheCampoDeTexto("description", "Texto teste");
+
+            //Campo passos para reproduzir
+            preencheCampoDeTexto("steps_to_reproduce", "Texto teste");
+
+            //Campo informacoes adicionais
+            preencheCampoDeTexto("additional_info", "Texto teste");
+
+            //Campo aplicar marcadores
+            driver.FindElement(By.Id("tag_select")).SendKeys("Texto");
+
+            //Campo visibilidade
+            driver.FindElement(By.XPath("//span[text()='público']")).Click();
+
+            //Clicar no botão criar tarefa
+            driver.FindElement(By.CssSelector("input[type='submit'][value='Criar Nova Tarefa']")).Click();
+
+            Assert.That(driver.Url, Is.EqualTo("https://mantis-prova.base2.com.br/bug_report.php?posted=1"), "Sistema nao permitiu cadastro");
+
+        }
+        [Test]
+        public void testCadastrarTarefaComCampoResumoVazio()
+        {
+            acessarPaginaCriarTarefa();
+
+            //Campo resumo
+            preencheCampoDeTexto("summary", "");
+
+            //Campo descricao
+            preencheCampoDeTexto("description", "Texto teste");
+         
+            //Clicar no botão criar tarefa
+            driver.FindElement(By.CssSelector("input[type='submit'][value='Criar Nova Tarefa']")).Click();
+
+            Assert.That(driver.Url, Is.EqualTo("https://mantis-prova.base2.com.br/bug_report_page.php"), "Sistema nao permitiu cadastro");
+
+        }
+        [Test]
+        public void testCadastrarTarefaComCampoDescricaoVazio()
+        {
+            acessarPaginaCriarTarefa();
+
+            //Campo resumo
+            preencheCampoDeTexto("summary", "Texto teste");
+
+            //Campo descricao
+            preencheCampoDeTexto("description", "");
+
+            //Clicar no botão criar tarefa
+            driver.FindElement(By.CssSelector("input[type='submit'][value='Criar Nova Tarefa']")).Click();
+
+            Assert.That(driver.Url, Is.EqualTo("https://mantis-prova.base2.com.br/bug_report_page.php"), "Sistema nao permitiu cadastro");
+
+        }
+
     }
 }
